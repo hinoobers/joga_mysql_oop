@@ -21,6 +21,11 @@ class BaseSQLModel {
         const results = await this.executeQuery(`SELECT * FROM ${this.table}`)
         return results;
     }
+
+    async findOne(w, v) {
+        const results = await this.executeQuery(`SELECT * FROM ${this.table} WHERE ${w}=${v}`)
+        return results[0];
+    }
 }
 
 module.exports = BaseSQLModel;

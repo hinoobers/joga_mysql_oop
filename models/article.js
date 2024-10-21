@@ -8,6 +8,11 @@ class ArticleModel extends BaseSQLModel {
     async findAll() {
         return super.findAll();
     }
+
+    async findOne(slug) {
+        const a = await super.findOne('slug', slug)
+        return a;
+    }
 }
 
 module.exports = ArticleModel;
