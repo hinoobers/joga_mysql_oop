@@ -1,19 +1,21 @@
-const con = require("../utils/db")
+const authorDbModel = require("../models/author");
+const articleDbModel = require("../models/article");
 
-const getAuthorPosts = (req, res) => {
-    console.log("GOT");
-    const authorId = req.params.slug;
+const authorModel = new authorDbModel();
+const articleModel = new articleDbModel();
 
-    con.query(`SELECT * FROM author WHERE id=${authorId}`, (err, ress) => {
-        con.query(`SELECT * FROM article WHERE author_id=${authorId}`, (err2, ress2) => {
-            // ress2.forEach(e => {
-            //     e.author = {}
-            //     e.author.name = ress[0].name;
-            //     e.author.id = ress[0].id
-            // })
-            res.render("author", {articles: ress2, author: ress[0]})
-        })
-    });
-};
+class authorController {
+    constructor() {
+        const authors = [];
+    }
 
-module.exports = {getAuthorPosts}
+    async getAuthorByID(req, res) {
+        console.log(req.params.id);
+        const author = await authorModel.findById(req.params.id)
+        const articles = await articleModel.findMany(author)
+        author["articles"] = articles;
+        res.status(201).json({author})
+    }
+}
+
+module.exports = authorController;

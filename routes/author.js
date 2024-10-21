@@ -1,7 +1,8 @@
 let router = require('express').Router();
 
-const authorController = require("../controllers/author")
+const authorControllerClass = require("../controllers/author")
+const authorController = new authorControllerClass();
 
-router.get("/:slug", authorController.getAuthorPosts)
+router.get("/author/:id", authorController.getAuthorByID)
 
 module.exports = router;

@@ -23,8 +23,17 @@ class BaseSQLModel {
     }
 
     async findOne(w, v) {
-        const results = await this.executeQuery(`SELECT * FROM ${this.table} WHERE ${w}=${v}`)
+        const results = await this.executeQuery(`SELECT * FROM ${this.table} WHERE ${w}="${v}"`)
         return results[0];
+    }
+
+    async findMany(w, v) {
+        const results = await this.executeQuery(`SELECT * FROM ${this.table} WHERE ${w}=${v}`)
+        return results; 
+    }
+
+    async findById(id) {
+        return this.findOne("id", id);
     }
 }
 

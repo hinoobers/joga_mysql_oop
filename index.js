@@ -11,6 +11,9 @@ const articleController = new articleControllerClass();
 const articleRoutes = require("./routes/article")
 app.use("/", articleRoutes)
 
+const authorRoutes = require("./routes/author")
+app.use("/", authorRoutes)
+
 app.listen(3000, () => {
     console.log("Listening on port 3000")
 });
