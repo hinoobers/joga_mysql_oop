@@ -17,6 +17,11 @@ class BaseSQLModel {
         });
     }
 
+    async create(data) {
+        const result = await this.executeQuery(`INSERT INTO ${this.table} SET ?`, data);
+        return result.insertId;
+    }
+
     async findAll() {
         const results = await this.executeQuery(`SELECT * FROM ${this.table}`)
         return results;

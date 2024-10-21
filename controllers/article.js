@@ -15,6 +15,25 @@ class articleController {
         const article = await articleModel.findOne(req.params.slug);
         res.status(201).json({article})
     }
+
+    async createNewArticle(req, res) {
+        const body = req.body;
+        console.log("Body", body);
+        const article = {
+            ...body,
+            published: new Date().toISOString().slice(0, 19).replace("T", " ")
+        }
+
+        const articleId = await articleModel.create(article);
+        res.status(201).json({
+            message: `created article with id ${articleId}`,
+            article: {id: articleId, ...article}
+        })
+    }
+
+    async updateArticle(req, res) {
+        
+    }
 }
 
 module.exports = articleController;
